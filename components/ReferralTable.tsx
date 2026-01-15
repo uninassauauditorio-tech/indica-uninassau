@@ -4,10 +4,11 @@ import { Indicacao, ReferralStatus, getStatusColor } from '../types';
 interface ReferralTableProps {
   referrals: Indicacao[];
   onViewDetails: (referral: Indicacao) => void;
+  onDelete?: (id: string) => void;
   showReferrer?: boolean;
 }
 
-const ReferralTable: React.FC<ReferralTableProps> = ({ referrals, onViewDetails, showReferrer }) => {
+const ReferralTable: React.FC<ReferralTableProps> = ({ referrals, onViewDetails, onDelete, showReferrer }) => {
   return (
     <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
       <div className="overflow-x-auto">
@@ -37,7 +38,7 @@ const ReferralTable: React.FC<ReferralTableProps> = ({ referrals, onViewDetails,
                   </div>
                 </td>
                 <td className="px-6 py-5">
-                  <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">{ref.candidatos?.curso_interest}</span>
+                  <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">{ref.candidatos?.curso_interesse}</span>
                 </td>
                 {showReferrer && (
                   <td className="px-6 py-5">
@@ -60,12 +61,24 @@ const ReferralTable: React.FC<ReferralTableProps> = ({ referrals, onViewDetails,
                   </span>
                 </td>
                 <td className="px-6 py-5 text-right">
-                  <button
-                    onClick={() => onViewDetails(ref)}
-                    className="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-primary/10 transition-all opacity-0 group-hover:opacity-100"
-                  >
-                    <span className="material-symbols-outlined">visibility</span>
-                  </button>
+                  <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                    <button
+                      onClick={() => onViewDetails(ref)}
+                      className="p-2 rounded-lg text-slate-400 hover:text-primary hover:bg-primary/10 transition-all"
+                      title="Ver Detalhes"
+                    >
+                      <span className="material-symbols-outlined">visibility</span>
+                    </button>
+                    {onDelete && (
+                      <button
+                        onClick={() => onDelete(ref.id)}
+                        className="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                        title="Excluir Indicação"
+                      >
+                        <span className="material-symbols-outlined">delete</span>
+                      </button>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
