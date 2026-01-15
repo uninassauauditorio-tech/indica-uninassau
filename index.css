@@ -1,0 +1,50 @@
+@layer base {
+  body {
+    @apply antialiased text-slate-900;
+  }
+}
+
+@layer components {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors;
+  }
+}
+
+/* Estilos de Impressão */
+@media print {
+
+  aside,
+  header,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .bg-white,
+  .bg-slate-900 {
+    background: white !important;
+    color: black !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .rounded-3xl,
+  .rounded-\[32px\],
+  .rounded-2xl {
+    border-radius: 0 !important;
+  }
+}
